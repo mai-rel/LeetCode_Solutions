@@ -12,27 +12,12 @@ def hasPathSum(root: Optional[TreeNode], targetSum: int) -> bool:
     if not root:
         return False
 
-    result = False
+    targetSum -= root.val
+    if not root.left and not root.right:
+        if targetSum == 0:
+            return True
 
-    def dfs(node, total=0):
-        nonlocal result
-        total += node.val
-
-        if result:
-            return
-
-        if not node.left and not node.right:
-            if total == targetSum:
-                result = True
-                return
-
-        if node.left:
-            dfs(node.left, total)
-        if node.right:
-            dfs(node.right, total)
-
-    dfs(root)
-    return result
+    return hasPathSum(root.left, targetSum) or hasPathSum(root.right, targetSum)
 
 
 
