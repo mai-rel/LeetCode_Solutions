@@ -2,33 +2,33 @@ from collections import deque
 from typing import List
 
 
-def count_cells(grid, m, n, i, j):
-    queue = deque([(i, j)])
-    count = 1
-    grid[i][j] = 0
+def get_size(field, m, n, start_row, start_col):
+    frontier = deque([(start_row, start_col)])
+    island_size = 1
+    field[start_row][start_col] = 0
 
-    while queue:
-        row, col = queue.popleft()
+    while frontier:
+        row, col = frontier.popleft()
 
-        for dr, dc in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
-            next_row = row + dr
-            next_col = col + dc
+        for delta_row, delta_col in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
+            neighbor_row = row + delta_row
+            neighbor_col = col + delta_col
 
-            if not (0 <= next_row < m and 0 <= next_col < n):
+            if not (0 <= neighbor_row < m and 0 <= neighbor_col < n):
                 continue
 
-            if grid[next_row][next_col] == 1:
-                count += 1
-                grid[next_row][next_col] = 0
-                queue.append((next_row, next_col))
+            if field[neighbor_row][neighbor_col] == 1:
+                island_size += 1
+                field[neighbor_row][neighbor_col] = 0
+                frontier.append((neighbor_row, neighbor_col))
 
-    return count
+    return island_size
 
 
 def maxAreaOfIsland(grid: List[List[int]]) -> int:
     m = len(grid)
     n = len(grid[0])
-    max_count = 0
+    max_island_size = 0
 
     for i, row in enumerate(grid):
         for j, value in enumerate(row):
@@ -36,7 +36,7 @@ def maxAreaOfIsland(grid: List[List[int]]) -> int:
             if value == 0:
                 continue
 
-            count = count_cells(grid, m, n, i, j)
-            max_count = max(max_count, count)
+            island_size = get_size(grid, m, n, i, j)
+            max_island_size = max(max_island_size, island_size)
 
-    return max_count
+    return max_island_size
