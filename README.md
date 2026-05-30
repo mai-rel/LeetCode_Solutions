@@ -1,10 +1,9 @@
 # LeetCode Solutions
 
-This repository contains my solutions to LeetCode problems.
+This repository contains selected LeetCode solutions.
 
-I use it to:
-- practice problem solving
-- improve algorithmic thinking
-- track my progress over time
+I created it not only to track algorithm practice, but also to learn Git 
+and GitHub and make version control a regular part of my workflow.
 
-Each solution is written and updated as I learn and grow.
+The repository includes only a subset of my solutions.
+
